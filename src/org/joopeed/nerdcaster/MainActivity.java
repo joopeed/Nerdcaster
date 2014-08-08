@@ -1,11 +1,14 @@
 package org.joopeed.nerdcaster;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -31,6 +34,9 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    
+    
+    private MediaPlayer mp = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,20 @@ public class MainActivity extends ActionBarActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
+        
+	    try {
+	        	if(!mp.isPlaying()) { 
+	            mp.reset();
+	            mp.setDataSource("http://jovemnerd.com.br/podpress_trac/feed/100596/0/nerdcast_426_nerdtour_california_comic_con.mp3");
+	            mp.prepare();
+	            mp.start();
+	        	}
+	            
+	
+	    } catch (IOException e) {
+	    }
+        
+       
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
